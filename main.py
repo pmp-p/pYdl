@@ -26,6 +26,7 @@ from peewee import *
 import pygame
 import gettext
 from image_set import image_set
+import os
 
 fr = gettext.translation('base', localedir=repertoire_script + 'locales', languages=[langue_appli], fallback=False)
 fr.install()
@@ -59,7 +60,7 @@ class pYdl(Tk):
                                bg = couleur_fond_saisie,
                                fg = couleur_texte_saisie)
         
-        self.entete = image_set(self.panel_001, 'images/logo-small')
+        self.entete = image_set(self.panel_001, 'images{}logo-small'.format(os.sep))
         
         ''' Implantation des composants
         '''
