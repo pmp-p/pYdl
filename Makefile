@@ -19,8 +19,3 @@ clean:
 pycache:
 	@echo "Removing __pycache__"
 	rm -rvf __pycache
-
-doc:
-	@echo "Generating documentation"
-	venv/bin/sphinx-build -M html docs/source docs/build
-	docs/make html

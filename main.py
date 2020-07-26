@@ -60,7 +60,14 @@ class pYdl(Tk):
                                bg = couleur_fond_saisie,
                                fg = couleur_texte_saisie)
         
-        self.entete = image_set(self.panel_001, 'images{}logo-small'.format(os.sep))
+        self.btn_001 = Button(self.panel_002,
+                              bg = couleur_fond_saisie,
+                              fg = couleur_texte_saisie,
+                              activebackground = couleur_texte_saisie,
+                              activeforeground = couleur_fond_saisie,
+                              text = _('C\'est parti !'))
+        
+        self.entete = image_set(self.panel_001, f'images{os.sep}logo-small')
         
         ''' Implantation des composants
         '''
@@ -72,6 +79,8 @@ class pYdl(Tk):
                           fill = BOTH)
         self.entry_url.pack(expand = True,
                             fill = BOTH)
+        self.btn_001.pack(expand = True,
+                          fill = BOTH)
         
         ''' Binding
         '''
