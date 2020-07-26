@@ -25,6 +25,7 @@ from configuration import *
 from peewee import *
 import pygame
 import gettext
+from image_set import image_set
 
 fr = gettext.translation('base', localedir=repertoire_script + 'locales', languages=[langue_appli], fallback=False)
 fr.install()
@@ -58,6 +59,8 @@ class pYdl(Tk):
                                bg = couleur_fond_saisie,
                                fg = couleur_texte_saisie)
         
+        self.entete = image_set(self.panel_001, 'images/logo-small')
+        
         ''' Implantation des composants
         '''
         self.panel_001.pack(expand = True,
@@ -65,8 +68,7 @@ class pYdl(Tk):
         self.panel_002.pack(expand = True,
                             fill = BOTH)
         self.txt_url.pack(expand = True,
-                          fill = BOTH,
-                          side = LEFT)
+                          fill = BOTH)
         self.entry_url.pack(expand = True,
                             fill = BOTH)
         
