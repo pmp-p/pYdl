@@ -1,3 +1,5 @@
+![](images/logo-small.png)
+
 # pYdl
 
 A frontend to youtube-dl.
