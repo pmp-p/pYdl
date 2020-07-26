@@ -41,6 +41,13 @@ class pYdl(Tk):
     def __init__(self, debug = False):
         Tk.__init__(self)
         self.debug = debug
+        '''
+        A remplacer par une toplevel propre...
+        '''
+        self.path_youtubedl = 'youtube-dl'
+        self.path_mp3 = repertoire_script + f'data{os.sep}'
+        self.path_videos = repertoire_script + f'data{os.sep}'
+        print(self.path_mp3)
     
     def interface(self):
         ''' Interface de la fenêtre
@@ -65,7 +72,8 @@ class pYdl(Tk):
                               fg = couleur_texte_saisie,
                               activebackground = couleur_texte_saisie,
                               activeforeground = couleur_fond_saisie,
-                              text = _('C\'est parti !'))
+                              text = _('C\'est parti !'),
+                              command = self.letsgo)
         
         self.entete = image_set(self.panel_001, f'images{os.sep}logo-small')
         
@@ -84,6 +92,12 @@ class pYdl(Tk):
         
         ''' Binding
         '''
+    def letsgo(self):
+        # Lancement de l'encodage
+        # MP3 Version
+        os.popen(f'{self.path_youtubedl} -q -x --audio-format mp3 {self.entry_url.get()} -o \'{self.path_mp3}%(title)s.%(ext)s\'')
+        # Video Version
+        os.popen(f'{self.path_youtubedl} -q {self.entry_url.get()} -o \'{self.path_videos}%(title)s.%(ext)s\'')
     
     def run(self):
         self.interface()
