@@ -23,7 +23,6 @@
 from tkinter import *
 from configuration import *
 from peewee import *
-from db_model import *
 import pygame
 import gettext
 
@@ -46,9 +45,30 @@ class pYdl(Tk):
         '''
         self.title(_('pYdl'))
         
+        self.panel_001 = Label(self,
+                               bg = couleur_fond)
+        self.panel_002 = Label(self,
+                               bg = couleur_fond)
+        
+        self.txt_url = Label(self.panel_002,
+                             text = _('URL'),
+                             bg = couleur_fond,
+                             fg = couleur_texte)
+        self.entry_url = Entry(self.panel_002,
+                               bg = couleur_fond_saisie,
+                               fg = couleur_texte_saisie)
+        
         ''' Implantation des composants
         '''
-
+        self.panel_001.pack(expand = True,
+                            fill = BOTH)
+        self.panel_002.pack(expand = True,
+                            fill = BOTH)
+        self.txt_url.pack(expand = True,
+                          fill = BOTH,
+                          side = LEFT)
+        self.entry_url.pack(expand = True,
+                            fill = BOTH)
         
         ''' Binding
         '''
