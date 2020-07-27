@@ -44,7 +44,8 @@ class pYdl(Tk):
         self.path_youtubedl = 'youtube-dl'
         self.path_mp3 = repertoire_script + f'data{os.sep}'
         self.path_videos = repertoire_script + f'data{os.sep}'
-        print(self.path_mp3)
+        self.is_audio_value = IntVar()
+        self.is_video_value = IntVar()
     
     def interface(self):
         ''' Interface de la fenêtre
@@ -55,6 +56,8 @@ class pYdl(Tk):
                                bg = couleur_fond)
         self.panel_002 = Label(self,
                                bg = couleur_fond)
+        self.panel_003 = Label(self,
+                               bg = couleur_fond)
         
         self.txt_url = Label(self.panel_002,
                              text = _('URL'),
@@ -64,7 +67,18 @@ class pYdl(Tk):
                                bg = couleur_fond_saisie,
                                fg = couleur_texte_saisie)
         
-        self.btn_001 = Button(self.panel_002,
+        self.is_audio = Checkbutton(self.panel_002,
+                                    bg = couleur_fond_saisie,
+                                    fg = couleur_texte_saisie,
+                                    variable = self.is_audio_value,
+                                    text =_('Capturer Audio'))
+        self.is_video = Checkbutton(self.panel_002,
+                                    bg = couleur_fond_saisie,
+                                    fg = couleur_texte_saisie,
+                                    variable = self.is_video_value,
+                                    text =_('Capturer Vidéo'))
+        
+        self.btn_001 = Button(self.panel_003,
                               bg = couleur_fond_saisie,
                               fg = couleur_texte_saisie,
                               activebackground = couleur_texte_saisie,
@@ -80,32 +94,45 @@ class pYdl(Tk):
                             fill = BOTH)
         self.panel_002.pack(expand = True,
                             fill = BOTH)
+        self.panel_003.pack(expand = True,
+                            fill = BOTH)
         self.txt_url.pack(expand = True,
                           fill = BOTH)
         self.entry_url.pack(expand = True,
                             fill = BOTH)
+        self.is_audio.pack(expand = True,
+                           fill = BOTH,
+                           side = LEFT)
+        self.is_video.pack(expand = True,
+                           fill = BOTH)
         self.btn_001.pack(expand = True,
                           fill = BOTH)
         
         ''' Binding
         '''
+        
+        # No binding needed for this app
+        
     def letsgo(self):
         # Lancement de l'encodage
         # MP3 Version
-        process = os.popen(f'{self.path_youtubedl} -q -x --audio-format mp3 {self.entry_url.get()} -o \'{self.path_mp3}%(title)s.%(ext)s\'')
         
-        while process.close() == None:
-            # Bloquage volontaire de l'application
-            process_stream = open(process, 'r')
-            process_stream_buffer = process_stream.readline()
+        if self.is_audio_value.get() == 1:
+            process = os.popen(f'{self.path_youtubedl} -q -x --audio-format mp3 {self.entry_url.get()} -o \'{self.path_mp3}%(title)s.%(ext)s\'')
+
+            while process.close() == None:
+                # Bloquage volontaire de l'application
+                process_stream = open(process, 'r')
+                process_stream_buffer = process_stream.readline()
+
+        if self.is_video_value.get() == 1:
+            # Video Version
+            process = os.popen(f'{self.path_youtubedl} -q {self.entry_url.get()} -o \'{self.path_videos}%(title)s.%(ext)s\'')
         
-        # Video Version
-        process = os.popen(f'{self.path_youtubedl} -q {self.entry_url.get()} -o \'{self.path_videos}%(title)s.%(ext)s\'')
-        
-        while process.close() == None:
-            # Bloquage volontaire de l'application
-            process_stream = open(process, 'r')
-            process_stream_buffer = process_stream.readline()
+            while process.close() == None:
+                # Bloquage volontaire de l'application
+                process_stream = open(process, 'r')
+                process_stream_buffer = process_stream.readline()
             
         self.entry_url.delete('0', 'end')
     
