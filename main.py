@@ -95,9 +95,24 @@ class pYdl(Tk):
     def letsgo(self):
         # Lancement de l'encodage
         # MP3 Version
-        os.popen(f'{self.path_youtubedl} -q -x --audio-format mp3 {self.entry_url.get()} -o \'{self.path_mp3}%(title)s.%(ext)s\'')
+        process = os.popen(f'{self.path_youtubedl} -q -x --audio-format mp3 {self.entry_url.get()} -o \'{self.path_mp3}%(title)s.%(ext)s\'')
+        
+        while process.close():
+            # Bloquage volontaire de l'application
+            process_stream = open(process, 'r')
+            process_stream_buffer = process_stream.readline()
+        
+        print('Passage à la capture vidéo')
+        
         # Video Version
-        os.popen(f'{self.path_youtubedl} -q {self.entry_url.get()} -o \'{self.path_videos}%(title)s.%(ext)s\'')
+        process = os.popen(f'{self.path_youtubedl} -q {self.entry_url.get()} -o \'{self.path_videos}%(title)s.%(ext)s\'')
+        
+        while not process.close():
+            # Bloquage volontaire de l'application
+            process_stream = open(process, 'r')
+            process_stream_buffer = process_stream.readline()
+            
+        self.entry_url.delete('0', 'end')
     
     def run(self):
         self.interface()
