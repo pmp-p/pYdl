@@ -23,7 +23,6 @@
 from tkinter import *
 from configuration import *
 from peewee import *
-import pygame
 import gettext
 from image_set import image_set
 import os
@@ -32,8 +31,6 @@ fr = gettext.translation('base', localedir=repertoire_script + 'locales', langua
 fr.install()
 _ = fr.gettext
 ngettext = fr.ngettext
-
-pygame.init()
 
 class pYdl(Tk):
     ''' Interface graphique ...
