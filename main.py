@@ -108,6 +108,11 @@ class pYdl(Tk):
         self.btn_001.pack(expand = True,
                           fill = BOTH)
         
+        ''' Initialise widgets values
+        '''
+        self.is_audio_value.set('1')
+        self.is_video_value.set('1')
+        
         ''' Binding
         '''
         
