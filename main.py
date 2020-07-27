@@ -146,6 +146,7 @@ class pYdl(Tk):
                         conti = True
                 except:
                     pass
+
         self.entry_url.config(state = NORMAL)
         self.btn_001.config(state = NORMAL)
         self.is_audio.config(state = NORMAL)
