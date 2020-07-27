@@ -1,6 +1,2 @@
-alabaster
-autodoc
-peewee
 Pillow
-Sphinx
 tk

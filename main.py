@@ -22,7 +22,6 @@
 
 from tkinter import *
 from configuration import *
-from peewee import *
 import gettext
 from image_set import image_set
 import os
