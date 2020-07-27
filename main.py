@@ -114,6 +114,10 @@ class pYdl(Tk):
         # No binding needed for this app
         
     def letsgo(self):
+        self.entry_url.config(state = DISABLED)
+        self.btn_001.config(state = DISABLED)
+        self.is_audio.config(state = DISABLED)
+        self.is_video.config(state = DISABLED)
         # Lancement de l'encodage
         # MP3 Version
         
@@ -137,7 +141,10 @@ class pYdl(Tk):
                         conti = True
                 except:
                     pass
-            
+        self.entry_url.config(state = NORMAL)
+        self.btn_001.config(state = NORMAL)
+        self.is_audio.config(state = NORMAL)
+        self.is_video.config(state = NORMAL)    
         self.entry_url.delete('0', 'end')
     
     def run(self):
