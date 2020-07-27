@@ -6,4 +6,4 @@
 
 A frontend to youtube-dl.
 
-Perfect to backup videos or music you forfot on your old youtube account.  
+Perfect to backup videos or music you forgot on your old youtube account.  
