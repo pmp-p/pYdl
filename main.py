@@ -94,7 +94,7 @@ class pYdl(Tk):
         # MP3 Version
         process = os.popen(f'{self.path_youtubedl} -q -x --audio-format mp3 {self.entry_url.get()} -o \'{self.path_mp3}%(title)s.%(ext)s\'')
         
-        while process.close():
+        while process.close() == None:
             # Bloquage volontaire de l'application
             process_stream = open(process, 'r')
             process_stream_buffer = process_stream.readline()
@@ -102,7 +102,7 @@ class pYdl(Tk):
         # Video Version
         process = os.popen(f'{self.path_youtubedl} -q {self.entry_url.get()} -o \'{self.path_videos}%(title)s.%(ext)s\'')
         
-        while process.close():
+        while process.close() == None:
             # Bloquage volontaire de l'application
             process_stream = open(process, 'r')
             process_stream_buffer = process_stream.readline()
