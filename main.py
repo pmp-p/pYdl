@@ -99,8 +99,6 @@ class pYdl(Tk):
             process_stream = open(process, 'r')
             process_stream_buffer = process_stream.readline()
         
-        print('Passage à la capture vidéo')
-        
         # Video Version
         process = os.popen(f'{self.path_youtubedl} -q {self.entry_url.get()} -o \'{self.path_videos}%(title)s.%(ext)s\'')
         
