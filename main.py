@@ -25,6 +25,7 @@ from configuration import *
 import gettext
 from image_set import image_set
 import os
+import subprocess
 
 fr = gettext.translation('base', localedir=repertoire_script + 'locales', languages=[langue_appli], fallback=False)
 fr.install()
@@ -126,25 +127,17 @@ class pYdl(Tk):
         # MP3 Version
         
         if self.is_audio_value.get() == 1:
-            process = os.popen(f'{self.path_youtubedl} -q -x --audio-format mp3 {self.entry_url.get()} -o \'{self.path_mp3}%(title)s.%(ext)s\'')
-            conti = False
-            while not conti:
-                try:
-                    if process.close() < 1:
-                        pass
-                except:
-                    conti = True
+            try:
+                subprocess.call(f'{self.path_youtubedl} -q -x --audio-format mp3 {self.entry_url.get()} -o \'{self.path_mp3}%(title)s.%(ext)s\'', shell = True)
+            except:
+                pass
 
         if self.is_video_value.get() == 1:
             # Video Version
-            process = os.popen(f'{self.path_youtubedl} -q {self.entry_url.get()} -o \'{self.path_videos}%(title)s.%(ext)s\'')
-            conti = False
-            while not conti:
-                try:
-                    if process.close() == None:
-                        conti = True
-                except:
-                    pass
+            try:
+                subprocess.call(f'{self.path_youtubedl} -q {self.entry_url.get()} -o \'{self.path_videos}%(title)s.%(ext)s\'')
+            except:
+                pass
 
         self.entry_url.config(state = NORMAL)
         self.btn_001.config(state = NORMAL)
