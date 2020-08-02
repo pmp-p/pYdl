@@ -20,22 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-import os
-
-chemin_script = os.path.abspath(__file__)
-repertoire_script = chemin_script[:next(i for i in reversed(range(len(chemin_script))) if chemin_script[i] == os.path.sep)+1]
-couleur_fond = 'white'
-couleur_texte = 'blue'
-couleur_fond_saisie = 'white'
-couleur_texte_saisie = 'blue'
-couleur_activebackground = couleur_texte_saisie
-couleur_activeforeground = couleur_fond_saisie
-debug = True
-langue_appli = 'fr'
-
-path_youtubedl = 'youtube-dl'
-path_mp3 = repertoire_script + f'data{os.sep}'
-path_videos = repertoire_script + f'data{os.sep}'
-
-h_dep = 0
-h_fin = 23
+class Tdl():
+    def __init__(self, is_video = False,
+                 is_sound = False,
+                 date_cre = None,
+                 date_exp = None,
+                 URL = None):
+        self.is_video = is_video
+        self.is_sound = is_sound
+        self.date_cre = date_cre # Creation date
+        self.date_exp = date_exp # Date to remove link
+        self.URL = URL

@@ -22,10 +22,13 @@
 
 from tkinter import *
 from configuration import *
+from structures import *
 import gettext
 from image_set import image_set
 import os
 import subprocess
+from dl_queue import dl_queue
+import datetime
 
 fr = gettext.translation('base', localedir=repertoire_script + 'locales', languages=[langue_appli], fallback=False)
 fr.install()
@@ -38,19 +41,16 @@ class pYdl(Tk):
     def __init__(self, debug = False):
         Tk.__init__(self)
         self.debug = debug
-        '''
-        A remplacer par une toplevel propre...
-        '''
-        self.path_youtubedl = 'youtube-dl'
-        self.path_mp3 = repertoire_script + f'data{os.sep}'
-        self.path_videos = repertoire_script + f'data{os.sep}'
         self.is_audio_value = IntVar()
         self.is_video_value = IntVar()
     
     def interface(self):
         ''' Interface de la fenêtre
         '''
+        self.dl_queue = dl_queue()
+        
         self.title(_('pYdl'))
+        self.iconphoto(False, PhotoImage(file=f'{repertoire_script}images{os.sep}icone.png'))
         
         self.panel_001 = Label(self,
                                bg = couleur_fond)
@@ -123,22 +123,18 @@ class pYdl(Tk):
         self.btn_001.config(state = DISABLED)
         self.is_audio.config(state = DISABLED)
         self.is_video.config(state = DISABLED)
-        # Lancement de l'encodage
-        # MP3 Version
         
+        a_charger = Tdl()
         if self.is_audio_value.get() == 1:
-            try:
-                subprocess.call(f'{self.path_youtubedl} -q -x --audio-format mp3 {self.entry_url.get()} -o \'{self.path_mp3}%(title)s.%(ext)s\'', shell = True)
-            except:
-                pass
-
+            a_charger.is_audio = True
         if self.is_video_value.get() == 1:
-            # Video Version
-            try:
-                subprocess.call(f'{self.path_youtubedl} -q {self.entry_url.get()} -o \'{self.path_videos}%(title)s.%(ext)s\'')
-            except:
-                pass
-
+            a_charger.is_video = True
+        a_charger.date_cre = datetime.datetime.now()
+        a_charger.date_exp = datetime.datetime.now() + datetime.timedelta(1)
+        a_charger.URL = self.entry_url.get()
+            
+        self.dl_queue.add_tdl(a_charger)
+        
         self.entry_url.config(state = NORMAL)
         self.btn_001.config(state = NORMAL)
         self.is_audio.config(state = NORMAL)
