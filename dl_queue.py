@@ -100,6 +100,7 @@ class dl_queue(Toplevel):
         
     def add_tdl(self, download):
         self.Tdl_list.append(download)
+        self.refresh_list()
     
     def refresh_list(self):
         for enfant in self.frame.winfo_children():
