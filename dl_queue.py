@@ -43,7 +43,7 @@ class dl_queue(Toplevel):
         Toplevel.__init__(self)
         self.debug = debug
         self.Tdl_list = []
-        self.interval = 600
+        self.interval = 60000
     
     def interface(self):
         ''' Interface de la fenêtre
