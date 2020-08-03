@@ -27,6 +27,7 @@ from structures import *
 import datetime
 import subprocess
 from time import strftime
+from image_set import image_set
 
 fr = gettext.translation('base', localedir=repertoire_script + 'locales', languages=[langue_appli], fallback=False)
 fr.install()
@@ -41,17 +42,41 @@ class dl_queue(Toplevel):
         self.debug = debug
         self.Tdl_list = []
         self.interval = 60000
-        self.after(self.interval, self.check_queue)
     
     def interface(self):
         ''' Interface de la fenêtre
         '''
         self.title(_('pYdl - Serveur'))
         self.iconphoto(False, PhotoImage(file=f'{repertoire_script}images{os.sep}icone.png'))
-        self.geometry('400x200')
+        
+        self.panel_001 = Label(self,
+                               bg = couleur_fond)
+        self.panel_002 = Label(self,
+                               bg = couleur_fond)
+        
+        self.top_time = image_set(self.panel_001, f'images{os.sep}horloge')
+        self.time_message = Label(self.panel_001,
+                                  text = _('Téléchargement autorisé de\n{}h à {}h'.format(h_dep, h_fin)),
+                                  bg = couleur_fond,
+                                  fg = couleur_texte)
+        
+        ''' Implantation des composants
+        '''
+        
+        self.panel_001.pack(expand = True,
+                            fill = BOTH)
+        self.panel_002.pack(expand = True,
+                            fill = BOTH)
+        
+        self.time_message.pack(expand = True,
+                               fill = BOTH)
+        
+        ''' Binding
+        '''
     
     def run(self):
         self.interface()
+        #self.after(self.interval, self.check_queue)
         
     def add_tdl(self, download):
         self.Tdl_list.append(download)

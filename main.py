@@ -48,6 +48,7 @@ class pYdl(Tk):
         ''' Interface de la fenêtre
         '''
         self.dl_queue = dl_queue()
+        self.dl_queue.run()
         
         self.title(_('pYdl'))
         self.iconphoto(False, PhotoImage(file=f'{repertoire_script}images{os.sep}icone.png'))
@@ -70,11 +71,15 @@ class pYdl(Tk):
         self.is_audio = Checkbutton(self.panel_002,
                                     bg = couleur_fond_saisie,
                                     fg = couleur_texte_saisie,
+                                    activebackground = couleur_texte_saisie,
+                                    activeforeground = couleur_fond_saisie,
                                     variable = self.is_audio_value,
                                     text =_('Capturer Audio'))
         self.is_video = Checkbutton(self.panel_002,
                                     bg = couleur_fond_saisie,
                                     fg = couleur_texte_saisie,
+                                    activebackground = couleur_texte_saisie,
+                                    activeforeground = couleur_fond_saisie,
                                     variable = self.is_video_value,
                                     text =_('Capturer Vidéo'))
         

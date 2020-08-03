@@ -24,10 +24,10 @@ import os
 
 chemin_script = os.path.abspath(__file__)
 repertoire_script = chemin_script[:next(i for i in reversed(range(len(chemin_script))) if chemin_script[i] == os.path.sep)+1]
-couleur_fond = 'white'
-couleur_texte = 'blue'
-couleur_fond_saisie = 'white'
-couleur_texte_saisie = 'blue'
+couleur_fond = 'black'
+couleur_texte = 'green'
+couleur_fond_saisie = 'black'
+couleur_texte_saisie = 'green'
 couleur_activebackground = couleur_texte_saisie
 couleur_activeforeground = couleur_fond_saisie
 debug = True
