@@ -137,7 +137,6 @@ class pYdl(Tk):
         a_charger.date_cre = datetime.datetime.now()
         a_charger.date_exp = datetime.datetime.now() + datetime.timedelta(1)
         a_charger.URL = self.entry_url.get()
-            
         self.dl_queue.add_tdl(a_charger)
         
         self.entry_url.config(state = NORMAL)

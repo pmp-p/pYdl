@@ -28,7 +28,7 @@ class image_set():
     '''
     Charger et modifier l'image de fond.
     '''
-    def __init__(self, master, image_locale, cote = LEFT):
+    def __init__(self, master, image_locale, cote = LEFT, fill_ = BOTH, expand_ = True):
         self.master = master
         self.original = Image.open(repertoire_script + image_locale + '.png')
         self.image_locale = ImageTk.PhotoImage(self.original)
@@ -36,4 +36,4 @@ class image_set():
         self.btn = Label(master, image = self.image_locale,
                             bg = couleur_fond)
         
-        self.btn.pack(expand = True, fill = BOTH, side = cote)
+        self.btn.pack(expand = expand_, fill = fill_, side = cote)

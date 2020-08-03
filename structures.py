@@ -31,3 +31,4 @@ class Tdl():
         self.date_cre = date_cre # Creation date
         self.date_exp = date_exp # Date to remove link
         self.URL = URL
+        self.is_active = False

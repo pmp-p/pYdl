@@ -28,6 +28,8 @@ import datetime
 import subprocess
 from time import strftime
 from image_set import image_set
+from class_dl import dl
+import time
 
 fr = gettext.translation('base', localedir=repertoire_script + 'locales', languages=[langue_appli], fallback=False)
 fr.install()
@@ -41,18 +43,28 @@ class dl_queue(Toplevel):
         Toplevel.__init__(self)
         self.debug = debug
         self.Tdl_list = []
-        self.interval = 60000
+        self.interval = 600
     
     def interface(self):
         ''' Interface de la fenêtre
         '''
         self.title(_('pYdl - Serveur'))
+        self.geometry('400x600')
         self.iconphoto(False, PhotoImage(file=f'{repertoire_script}images{os.sep}icone.png'))
         
         self.panel_001 = Label(self,
                                bg = couleur_fond)
-        self.panel_002 = Label(self,
-                               bg = couleur_fond)
+        self.panel_002 = Canvas(self,
+                               background = couleur_fond)
+        self.vsb = Scrollbar(self.panel_002, orient = 'vertical',
+                             command = self.panel_002.yview)
+        self.panel_002.configure(yscrollcommand = self.vsb.set)
+        self.frame = Frame(self.panel_002,
+                           background = couleur_fond)
+        self.panel_002.create_window((1,1),
+                                     window = self.frame,
+                                     anchor='nw',
+                                     tags = 'self.frame')
         
         self.top_time = image_set(self.panel_001, f'images{os.sep}horloge')
         self.time_message = Label(self.panel_001,
@@ -67,22 +79,42 @@ class dl_queue(Toplevel):
                             fill = BOTH)
         self.panel_002.pack(expand = True,
                             fill = BOTH)
+        self.vsb.pack(side = 'right',
+                      fill = 'y')
         
         self.time_message.pack(expand = True,
                                fill = BOTH)
         
         ''' Binding
         '''
+        
+        self.panel_002.bind("<Configure>", self.onFrameConfigure)
+            
+    def onFrameConfigure(self, event):
+        '''Reset the scroll region to encompass the inner frame'''
+        self.panel_002.config(scrollregion = self.panel_002.bbox('all'))
     
     def run(self):
         self.interface()
-        #self.after(self.interval, self.check_queue)
+        self.after(self.interval, self.check_queue)
         
     def add_tdl(self, download):
         self.Tdl_list.append(download)
-        
+    
+    def refresh_list(self):
+        for enfant in self.frame.winfo_children():
+            enfant.destroy()
+        cursor = 0
+        for download in self.Tdl_list:
+            selection = dl(master = self.frame, tdl = download)
+            selection.run()
+            selection.grid(row = cursor, column = 0)
+            cursor += 1
+    
     def check_queue(self):
         heure = int(datetime.datetime.now().strftime('%H'))
+        self.refresh_list()
+                                        
         if (heure >= h_dep) and (heure <= h_fin):
             
             # Suppression des téléchargement obsolètes
@@ -94,12 +126,16 @@ class dl_queue(Toplevel):
             # Lancement des téléchargements
             for download in self.Tdl_list:
                 if (download.date_cre - datetime.datetime.now()).total_seconds() < 0:
+                    download.is_active = True
+                    self.refresh_list()
+                    self.update()
                     self.letsdl_fake(download)
                     self.Tdl_list.remove(download)
         
         self.after(self.interval, self.check_queue)
     
     def letsdl_fake(self, download):
+        time.sleep(10)
         print(f'{download.URL} est maintenant téléchargé')
     
     def letsdl(self, download):

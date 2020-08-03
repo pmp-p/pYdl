@@ -37,5 +37,5 @@ path_youtubedl = 'youtube-dl'
 path_mp3 = repertoire_script + f'data{os.sep}'
 path_videos = repertoire_script + f'data{os.sep}'
 
-h_dep = 0
-h_fin = 23
+h_dep = 2
+h_fin = 5
