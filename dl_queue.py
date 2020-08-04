@@ -30,6 +30,7 @@ from time import strftime
 from image_set import image_set
 from class_dl import dl
 import time
+from threading import Thread
 
 fr = gettext.translation('base', localedir=repertoire_script + 'locales', languages=[langue_appli], fallback=False)
 fr.install()
@@ -43,7 +44,7 @@ class dl_queue(Toplevel):
         Toplevel.__init__(self)
         self.debug = debug
         self.Tdl_list = []
-        self.interval = 60000
+        self.interval = 6000
     
     def interface(self):
         ''' Interface de la fenêtre
@@ -130,28 +131,40 @@ class dl_queue(Toplevel):
                     download.is_active = True
                     self.refresh_list()
                     self.update()
-                    self.letsdl_fake(download)
+                    thread_001 = letsdl(download)
+                    thread_001.start()
+                    thread_001.join()
                     self.Tdl_list.remove(download)
         
         self.after(self.interval, self.check_queue)
-    
-    def letsdl_fake(self, download):
+                
+class letsdl_fake(Thread):
+    def __init__(self, download):
+        Thread.__init__(self)
+        self.download = download
+        
+    def run(self):
         time.sleep(10)
-        print(f'{download.URL} est maintenant téléchargé')
-    
-    def letsdl(self, download):
+        print(f'{self.download.URL} est maintenant téléchargé')
+
+class letsdl(Thread):
+    def __init__(self, download):
+        Thread.__init__(self)
+        self.download = download
+        
+    def run(self):
         # Lancement de l'encodage
         # MP3 Version
-        if download.is_audio:
+        if self.download.is_audio:
             try:
-                subprocess.call(f'{path_youtubedl} -q -x --audio-format mp3 {download.URL} -o \'{path_mp3}%(title)s.%(ext)s\'', shell = True)
+                subprocess.call(f'{path_youtubedl} -q -x --audio-format mp3 {self.download.URL} -o \'{path_mp3}%(title)s.%(ext)s\'', shell = True)
             except:
                 pass
 
-        if download.is_video:
+        if self.download.is_video:
             # Video Version
             try:
-                subprocess.call(f'{path_youtubedl} -q {download.URL} -o \'{path_videos}%(title)s.%(ext)s\'')
+                subprocess.call(f'{path_youtubedl} -q {self.download.URL} -o \'{path_videos}%(title)s.%(ext)s\'')
             except:
                 pass
 
