@@ -22,12 +22,12 @@
 
 class Tdl():
     def __init__(self, is_video = False,
-                 is_sound = False,
+                 is_audio = False,
                  date_cre = None,
                  date_exp = None,
                  URL = None):
         self.is_video = is_video
-        self.is_sound = is_sound
+        self.is_audio = is_audio
         self.date_cre = date_cre # Creation date
         self.date_exp = date_exp # Date to remove link
         self.URL = URL

@@ -44,7 +44,7 @@ class dl_queue(Toplevel):
         Toplevel.__init__(self)
         self.debug = debug
         self.Tdl_list = []
-        self.interval = 6000
+        self.interval = 60000
     
     def interface(self):
         ''' Interface de la fenêtre
@@ -160,11 +160,10 @@ class letsdl(Thread):
                 subprocess.call(f'{path_youtubedl} -q -x --audio-format mp3 {self.download.URL} -o \'{path_mp3}%(title)s.%(ext)s\'', shell = True)
             except:
                 pass
-
+        # Video Version
         if self.download.is_video:
-            # Video Version
             try:
-                subprocess.call(f'{path_youtubedl} -q {self.download.URL} -o \'{path_videos}%(title)s.%(ext)s\'')
+                subprocess.call(f'{path_youtubedl} -q {self.download.URL} -o \'{path_videos}%(title)s.%(ext)s\'', shell = True)
             except:
                 pass
 

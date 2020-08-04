@@ -23,7 +23,7 @@
 import os
 
 chemin_script = os.path.abspath(__file__)
-repertoire_script = chemin_script[:next(i for i in reversed(range(len(chemin_script))) if chemin_script[i] == os.path.sep)+1]
+repertoire_script = chemin_script[:next(i for i in reversed(range(len(chemin_script))) if chemin_script[i] == os.path.sep) + 1]
 couleur_fond = 'black'
 couleur_texte = 'green'
 couleur_fond_saisie = 'black'
@@ -37,5 +37,5 @@ path_youtubedl = 'youtube-dl'
 path_mp3 = repertoire_script + f'data{os.sep}'
 path_videos = repertoire_script + f'data{os.sep}'
 
-h_dep = 2
+h_dep = 0
 h_fin = 23
