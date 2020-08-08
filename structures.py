@@ -20,15 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-class Tdl():
-    def __init__(self, is_video = False,
-                 is_audio = False,
-                 date_cre = None,
-                 date_exp = None,
-                 URL = None):
+
+class Tdl:
+    def __init__(self, is_video=False, is_audio=False, date_cre=None, date_exp=None, URL=None):
         self.is_video = is_video
         self.is_audio = is_audio
-        self.date_cre = date_cre # Creation date
-        self.date_exp = date_exp # Date to remove link
+        self.date_cre = date_cre  # Creation date
+        self.date_exp = date_exp  # Date to remove link
         self.URL = URL
         self.is_active = False

@@ -21,55 +21,52 @@
 # THE SOFTWARE.
 
 from tkinter import *
-from structures import *
-from configuration import *
+from .structures import *
+from .configuration import *
 import datetime
-from image_set import image_set
+from .image_set import image_set
 import os
 
+
 class dl(Label):
-    ''' Interface graphique ...
-    '''
-    def __init__(self, debug = False, master = None, tdl = Tdl()):
+    """ Interface graphique ...
+    """
+
+    def __init__(self, debug=False, master=None, tdl=Tdl()):
         Label.__init__(self, master)
         self.debug = debug
         self.master = master
         self.tdl = tdl
-        self.config(bg = couleur_fond,
-                    fg = couleur_texte)
-    
+        self.config(bg=couleur_fond, fg=couleur_texte)
+
     def interface(self):
-        ''' Interface du widget
-        '''
+        """ Interface du widget
+        """
         if self.tdl.is_active:
-            self.img_status = image_set(self, f'images{os.sep}point_vert', expand_ = False)
+            self.img_status = image_set(self, f"images{os.sep}point_vert", expand_=False)
         else:
-            self.img_status = image_set(self, f'images{os.sep}point_rouge', expand_ = False)
-        self.lbl_dl = Label(self,
-                            bg = couleur_fond,
-                            fg = couleur_texte,
-                            text = self.tdl.URL)
-        
-        
-        ''' Implantation des composants
-        '''
-        self.lbl_dl.pack(expand = True,
-                         fill = BOTH)
-    
+            self.img_status = image_set(self, f"images{os.sep}point_rouge", expand_=False)
+        self.lbl_dl = Label(self, bg=couleur_fond, fg=couleur_texte, text=self.tdl.URL)
+
+        """ Implantation des composants
+        """
+        self.lbl_dl.pack(expand=True, fill=BOTH)
+
     def run(self):
         self.interface()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     w = Tk()
     w.after(30000, w.destroy)
-    w.geometry('400x200')
+    w.geometry("400x200")
     a_charger = Tdl()
     a_charger.is_audio = True
     a_charger.is_video = True
     a_charger.date_cre = datetime.datetime.now()
     a_charger.date_exp = datetime.datetime.now() + datetime.timedelta(1)
-    a_charger.URL = 'essai dl'
-    App = dl(master = w, tdl = a_charger)
+    a_charger.URL = "essai dl"
+    App = dl(master=w, tdl=a_charger)
     App.run()
-    App.pack(fill = BOTH)
+    App.pack(fill=BOTH)
     w.mainloop()

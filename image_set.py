@@ -20,20 +20,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from configuration import *
+from .configuration import *
 from tkinter import *
 from PIL import Image, ImageTk
 
-class image_set():
-    '''
+
+class image_set:
+    """
     Charger et modifier l'image de fond.
-    '''
-    def __init__(self, master, image_locale, cote = LEFT, fill_ = BOTH, expand_ = True):
+    """
+
+    def __init__(self, master, image_locale, cote=LEFT, fill_=BOTH, expand_=True):
         self.master = master
-        self.original = Image.open(repertoire_script + image_locale + '.png')
+        self.original = Image.open(repertoire_script + image_locale + ".png")
         self.image_locale = ImageTk.PhotoImage(self.original)
-        
-        self.btn = Label(master, image = self.image_locale,
-                            bg = couleur_fond)
-        
-        self.btn.pack(expand = expand_, fill = fill_, side = cote)
+
+        self.btn = Label(master, image=self.image_locale, bg=couleur_fond)
+
+        self.btn.pack(expand=expand_, fill=fill_, side=cote)
